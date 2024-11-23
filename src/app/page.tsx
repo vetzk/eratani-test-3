@@ -1,101 +1,265 @@
-import Image from "next/image";
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import React, { useState } from "react";
+
+const data = [
+  {
+    firstName: "Thomas",
+    lastName: "Williams",
+    email: "thomas.williams@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "Michael",
+    lastName: "Gonzalez",
+    email: "michael.gonzalez@test.com",
+    gender: "Male",
+  },
+  {
+    firstName: "Thomas",
+    lastName: "Perez",
+    email: "thomas.perez@mail.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Alex",
+    lastName: "Hernandez",
+    email: "alex.hernandez@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "James",
+    lastName: "Perez",
+    email: "james.perez@example.com",
+    gender: "Male",
+  },
+  {
+    firstName: "David",
+    lastName: "Anderson",
+    email: "david.anderson@test.com",
+    gender: "Male",
+  },
+  {
+    firstName: "Robert",
+    lastName: "Perez",
+    email: "robert.perez@demo.com",
+    gender: "Female",
+  },
+  {
+    firstName: "David",
+    lastName: "Jackson",
+    email: "david.jackson@mail.com",
+    gender: "Male",
+  },
+  {
+    firstName: "Isabella",
+    lastName: "White",
+    email: "isabella.white@mail.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Robert",
+    lastName: "Smith",
+    email: "robert.smith@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "Sophia",
+    lastName: "Garcia",
+    email: "sophia.garcia@demo.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Thomas",
+    lastName: "Brown",
+    email: "thomas.brown@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "Sophia",
+    lastName: "Taylor",
+    email: "sophia.taylor@mail.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Thomas",
+    lastName: "Perez",
+    email: "thomas.perez@mail.com",
+    gender: "Male",
+  },
+  {
+    firstName: "Chris",
+    lastName: "Hernandez",
+    email: "chris.hernandez@test.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Michael",
+    lastName: "Taylor",
+    email: "michael.taylor@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "Sophia",
+    lastName: "Hernandez",
+    email: "sophia.hernandez@mail.com",
+    gender: "Female",
+  },
+  {
+    firstName: "Alex",
+    lastName: "Gonzalez",
+    email: "alex.gonzalez@sample.org",
+    gender: "Female",
+  },
+  {
+    firstName: "Chris",
+    lastName: "Brown",
+    email: "chris.brown@test.com",
+    gender: "Male",
+  },
+  {
+    firstName: "Sophia",
+    lastName: "Garcia",
+    email: "sophia.garcia@example.com",
+    gender: "Female",
+  },
+];
+
+type Data = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  gender: string;
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [allData, setAllData] = useState<Data[]>(data);
+  const [search, setSearch] = useState<string>("");
+  const [form, setForm] = useState<Data>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    gender: "",
+  });
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const handleDelete = (index: number) => {
+    const deletedData = data.filter((_, i) => i !== index);
+    setAllData(deletedData);
+  };
+
+  const handleSearch = () => {
+    setAllData(
+      data.filter(
+        (e) =>
+          e.firstName.toLowerCase().includes(search.toLowerCase()) ||
+          e.email.toLowerCase().includes(search.toLowerCase()) ||
+          e.lastName.toLowerCase().includes(search.toLowerCase()) ||
+          e.gender.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  };
+  const handleEdit = (index: number) => {
+    setEditIndex(index);
+    setForm(data[index]);
+  };
+
+  const handleEditOrAdd = () => {
+    if (editIndex != null) {
+      const updatedData = [...data];
+      updatedData[editIndex] = form;
+      setAllData(updatedData);
+      setEditIndex(null);
+    } else {
+      setAllData([...data, form]);
+    }
+
+    setForm({ firstName: "", lastName: "", email: "", gender: "" });
+  };
+
+  return (
+    <main className="p-10 w-full flex flex-col gap-10">
+      <div className="flex gap-5">
+        <Input
+          placeholder="Search..."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button onClick={() => handleSearch()}>Search</Button>
+      </div>
+
+      <div className="w-1/2 flex flex-col gap-5">
+        <Input
+          placeholder="First Name"
+          onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+          value={form.firstName}
+        />
+        <Input
+          placeholder="Last Name"
+          onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+          value={form.lastName}
+        />
+        <Input
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          value={form.email}
+        />
+        <Input
+          placeholder="Gender"
+          onChange={(e) => setForm({ ...form, gender: e.target.value })}
+          value={form.gender}
+        />
+        <Button
+          onClick={() => handleEditOrAdd()}
+          disabled={
+            form.firstName === "" ||
+            form.lastName === "" ||
+            form.email === "" ||
+            form.gender === ""
+          }
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          {editIndex != null ? "Update" : "Add"}
+        </Button>
+      </div>
+
+      <Table>
+        <TableCaption>User Visit</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>No</TableHead>
+            <TableHead>First Name</TableHead>
+            <TableHead>Last Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Gender</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {allData.map((e, i) => (
+            <TableRow key={i}>
+              <TableCell>{i + 1}</TableCell>
+              <TableCell>{e.firstName}</TableCell>
+              <TableCell>{e.lastName}</TableCell>
+              <TableCell>{e.email}</TableCell>
+              <TableCell>{e.gender}</TableCell>
+              <TableCell className="flex gap-5">
+                <Button onClick={() => handleEdit(i)}>Edit</Button>
+                <Button className="bg-red-600" onClick={() => handleDelete(i)}>
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </main>
   );
 }
